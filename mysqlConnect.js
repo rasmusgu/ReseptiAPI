@@ -30,12 +30,12 @@ function reseptiLista() {
                 .then(result => { // Print the results
                     for (row of result) {
                         console.log(row)
-
+                    }
                     })
                 .then(conn.destroy()) // Close the connection
             return result
         })
-}
+
 }
 
 function reseptiHaku(reseptinNimi) {
@@ -51,10 +51,10 @@ function reseptiHaku(reseptinNimi) {
                 .then(result => { // Print the results
                     for (row of result) {
                         console.log(row)
-
+                    }
                     })
                 .then(conn.destroy()) // Close the connection
             return result
         })
-}
+
 }
