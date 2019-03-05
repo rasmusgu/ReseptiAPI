@@ -116,3 +116,5 @@ reseptiLista();
 //syotaResepti("Tosca Omenat",55,"Pilko omenat ja laita hiutaleiden kanssa uuniin");
 //syotaAinesosa("Kaurahiutaleet", 5);
 //syotaAinesosa("Omenat",5);
+
+module.exports.reseptiLista = reseptiLista; // export your functuion
