@@ -23,7 +23,7 @@ async function asyncFunction() {
     }
 }
 */
-var mariadb = require('mariadb')
+/* var mariadb = require('mariadb')
 
 mariadb.createConnection({ // Open a new connection
     user: 'monty',
@@ -39,3 +39,4 @@ mariadb.createConnection({ // Open a new connection
             })
             .then(conn.destroy()) // Close the connection
     })
+*/
