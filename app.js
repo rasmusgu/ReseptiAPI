@@ -9,7 +9,7 @@ var apiRouter = require('./routes/api');
 
 var app = express();
 
-const myModule = require('./mysqlConnect');
+const mysql = require('./mysqlConnect');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
