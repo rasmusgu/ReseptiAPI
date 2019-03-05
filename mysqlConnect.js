@@ -58,3 +58,5 @@ function reseptiHaku(reseptinNimi) {
         })
 
 }
+
+module.exports.reseptiLista = reseptiLista; // export your functuion
