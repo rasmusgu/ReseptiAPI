@@ -46,7 +46,7 @@ function reseptiHaku(reseptinNimi) {
         port: 3306
     })
         .then(conn => {
-            conn.query('use reseptiapi') // Execute a query
+            conn.query('use reseptiapi') // Valitsee tietokannan
             conn.query('SELECT * FROM reseptit') // Execute a query
                 .then(result => { // Print the results
                     for (row of result) {
