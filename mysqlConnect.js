@@ -27,8 +27,9 @@ var mariadb = require('mariadb')
 
 mariadb.createConnection({ // Open a new connection
     user: 'monty',
+    password: 'metrofilia1',
     host: 'haxers.ddns.net',
-    port: 3006
+    port: 3306
 })
     .then(conn => {
         conn.query('SELECT "Hello world!" as my_message') // Execute a query
