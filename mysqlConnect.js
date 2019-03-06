@@ -11,14 +11,14 @@ function mysqlConnectionTest() {
             conn.query('SELECT "Hello world!" as my_message') // Execute a query
                 .then(result => { // Print the results
                     for (row of result) {
-                        console.log(row)
+                        //console.log(row)
                     }
                 })
                 .then(conn.destroy()) // Close the connection
         })
 }
 
-function reseptiLista() {
+function reseptiLista(callback) {
     mariadb.createConnection({ // Open a new connection
         user: 'monty',
         password: 'metrofilia1',
@@ -27,14 +27,22 @@ function reseptiLista() {
     })
         .then(conn => {
             conn.query('use reseptiapi') // Execute a query
-            conn.query('SELECT * FROM reseptit') // Execute a query
-                .then(result => { // Print the results
-                    for (row of result) {
-                        console.log(row)
-                    }
-                    })
+            conn.query('SELECT * FROM reseptit')// Execute a query
+                .then(result => {
+                    var alteredresult  = JSON.stringify(result);
+                        console.log("reseptilista " +alteredresult);
+                    //}
+                    callback(alteredresult)
+
+
+
+
+                //return alteredresult;
+
+            })
+
                 .then(conn.destroy()) // Close the connection
-            return result
+
         })
 
 }
@@ -110,7 +118,7 @@ function syotaAinesosa(nimi, reseptiId) {
 }
 
 mysqlConnectionTest();
-reseptiLista();
+//reseptiLista();
 //reseptiHaku('Pasta bolognese');
 //ainesosaHaku(1
 //syotaResepti("Tosca Omenat",55,"Pilko omenat ja laita hiutaleiden kanssa uuniin");
