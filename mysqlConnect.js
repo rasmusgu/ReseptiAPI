@@ -68,7 +68,7 @@ function reseptiHaku(reseptinNimi, callback) {
     })
         .then(conn => {
             conn.query('use reseptiapi') // Execute a query
-            conn.query('SELECT * FROM reseptit WHERE nimi="'+reseptinNimi+'";') // Execute a query
+            conn.query('SELECT * FROM reseptit WHERE nimi LIKE "%'+reseptinNimi+'%";')//,[reseptinNimi]) // Execute a query
                 .then(result => { // Print the results
                     var alteredresult  = JSON.stringify(result); // turns the mysql query result into string
                     console.log("Haettu resepti: " +alteredresult);
@@ -142,15 +142,15 @@ function getReseptiID(reseptiNimi){
     })
         .then(conn => {
             conn.query('use reseptiapi') // Choose database
-            conn.query('SELECT id FROM TABLE reseptit WHERE nimi='+reseptiNifmi+';') // Execute query
+            conn.query('SELECT id FROM TABLE reseptit WHERE nimi='+reseptiNimi+';') // Execute query
                 .then(conn.destroy()) // Close the connection
         })
 }
 
 mysqlConnectionTest();
-reseptiJaAinesosaLista();
+//reseptiJaAinesosaLista();
 //reseptiLista();
-reseptiHaku('Puuro');
+reseptiHaku('puu');
 //syotaResepti("Siskonmakkara -keitto",95,"Pilko ainekset, keitä vesi ja laita pilkotut ainekset veteen.");
 //syotaAinesosa("Siskonmakkara",6);
 //syotaAinesosa("Peruna",6);
