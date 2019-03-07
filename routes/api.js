@@ -17,8 +17,8 @@ router.get('/api/list', function(req, res, next){
 })
 
 router.get('/api/haeResepti', function(req, res){
-    var recipe = req.query.receipe;
-    console.log(req.query.receipe);
+    var recipe = req.query.recipe;
+    console.log(req.query.recipe);
 
   mysqlConnect.reseptiHaku(recipe, function(returnvalue){
       console.log(returnvalue)
