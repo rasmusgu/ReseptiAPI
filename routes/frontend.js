@@ -10,4 +10,8 @@ router.get('/reseptilista', function(req, res, next) {
   res.sendFile('reseptilista.html', {root: 'frontend/'});
 });
 
+router.get('/haku', function(req, res, next) {
+  res.sendFile('haku.html', {root: 'frontend/'});
+});
+
 module.exports = router;

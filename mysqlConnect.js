@@ -148,11 +148,11 @@ function getReseptiID(reseptiNimi, callback){
 mysqlConnectionTest();
 //reseptiJaAinesosaLista();
 //reseptiLista();
-reseptiHaku('puu');
-syotaResepti("Tuliset tacot",25,"Paista jauheliha, aseta tacojen sisään/päälle ja kaada päälle tulinen kastike.",);
-syotaAinesosa("Kovakuorinen tortilla (Taco)",7);
-syotaAinesosa("Tulinen kastike",7);
-syotaAinesosa("Jauheliha",7);
+//reseptiHaku('puu');
+//syotaResepti("Tuliset tacot",25,"Paista jauheliha, aseta tacojen sisään/päälle ja kaada päälle tulinen kastike.",);
+//syotaAinesosa("Kovakuorinen tortilla (Taco)",7);
+//syotaAinesosa("Tulinen kastike",7);
+//syotaAinesosa("Jauheliha",7);
 
 // export functions
 module.exports.reseptiLista = reseptiLista;
