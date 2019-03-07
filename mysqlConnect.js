@@ -150,7 +150,7 @@ function syotaAinesosa(nimi, reseptiId) {
 
 }
 
-function syotaResepti(nimi, valmistusaika, kokkausohje, kuva) { // strings: nimi, valmistusaika, kuva. int: kokkausohje
+function syotaResepti(nimi, valmistusaika, kokkausohje, kuva, callback) { // strings: nimi, valmistusaika, kuva. int: kokkausohje
 
     mariadb.createConnection({ // Open a new connection
         user: 'monty',
@@ -159,9 +159,26 @@ function syotaResepti(nimi, valmistusaika, kokkausohje, kuva) { // strings: nimi
         port: 3306
     })
         .then(conn => {
+            var result;
             conn.query('use reseptiapi') // Execute a query
             conn.query('INSERT INTO reseptit(nimi, valmistusaika, kokkausohje, kuva) VALUES("'+nimi+'", '+valmistusaika+', "'+kokkausohje+'", "'+kuva+'")') // Execute a query
-                .then(conn.destroy()) // Close the connection
+                .then((res) => {
+                    result= res;
+                    console.log(result); // { affectedRows: 1, insertId: 1, warningStatus: 0 }
+                    conn.end();
+                    callback(result)
+                })
+                .catch(err => {
+                    //handle error
+                    result= res;
+                    console.log(result);
+                    conn.end();
+                    callback(result)
+                })
+
+
+
+
         })
 }
 
