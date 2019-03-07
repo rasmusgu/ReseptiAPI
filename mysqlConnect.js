@@ -160,7 +160,7 @@ function syotaResepti(nimi, valmistusaika, kokkausohje, kuva, callback) { // str
         port: 3306
     })
         .then(conn => {
-            var result;
+           // var result;
             conn.query('use reseptiapi') // Execute a query
             conn.query('INSERT INTO reseptit(nimi, valmistusaika, kokkausohje, kuva) VALUES("'+nimi+'", '+valmistusaika+', "'+kokkausohje+'", "'+kuva+'")') // Execute a query
                 .then((res) => {
@@ -171,7 +171,7 @@ function syotaResepti(nimi, valmistusaika, kokkausohje, kuva, callback) { // str
                 })
                 .catch(err => {
                     //handle error
-                    result= res;
+                    result= err;
                     console.log(result);
                     conn.end();
                     callback(result)
