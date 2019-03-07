@@ -130,7 +130,7 @@ function haeReseptiById(id, callback) {
         .then(conn => {
             conn.query('use reseptiapi') // select database
             //conn.query("SELECT * FROM reseptit WHERE id='"+id+"';") // searches recipe based on id
-            conn.query("SELECT r.`id`, r.`nimi`, r.`valmistusaika`, r.`kokkausohje`, r.`kuva`,  GROUP_CONCAT(a.`nimi` separator ', ') FROM `reseptit` r LEFT JOIN `ainesosat` a on a.`reseptiID` = r.`id` and r.`id`=? GROUP BY r.`id`, r.`nimi`;",[id])
+            conn.query("SELECT r.`id`, r.`nimi`, r.`valmistusaika`, r.`kokkausohje`, r.`kuva`,  GROUP_CONCAT(a.`nimi` separator ', ') FROM `reseptit` r LEFT JOIN `ainesosat` a ON a.`reseptiID`=r.`id` WHERE r.`id`=? GROUP BY r.`id`, r.`nimi`;",[id])
                 /*.then(result => {
                     var alteredresult  = JSON.stringify(result);
                     console.log("Reseptilista: " +alteredresult);
