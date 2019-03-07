@@ -7,7 +7,7 @@ router.get('/api', function(req, res, next) {
   res.send('This is the API');
 });
 
-router.get('/api/list', function(req, res, next){
+router.get('/api/lista', function(req, res, next){
 
 
   mysqlConnect.reseptiLista(function(returnvalue){         //täytyy laittaa reseptilistalle parametrina funktio, minkä se osaa ajaa myöhemmin
