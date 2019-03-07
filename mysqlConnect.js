@@ -27,11 +27,15 @@ function reseptiLista(callback) {
     })
         .then(conn => {
             conn.query('use reseptiapi') // Execute a query
-            conn.query('SELECT * FROM reseptit')// Execute a query
+            //conn.query('SELECT r.`id`, r.`nimi`, Ainesosat(ainesosat.`nimi` separator ', ') FROM `reseptit` r LEFT JOIN `ainesosat` a on a.`reseptiID` = r.`id` GROUP BY r.`id`, r.`nimi`');
+            conn.query("SELECT r.`id`, r.`nimi`, GROUP_CONCAT(a.`nimi` separator ', ') FROM `reseptit` r LEFT JOIN `ainesosat` a on a.`reseptiID` = r.`id` GROUP BY r.`id`, r.`nimi`;")
+            //conn.query('SELECT * FROM reseptit')// Execute a query
                 .then(result => {
                     var alteredresult  = JSON.stringify(result);
-                        console.log("reseptilista " +alteredresult);
-                    callback(alteredresult)
+                    console.log("Reseptilista: " +alteredresult);
+                    if (callback) {
+                        callback(alteredresult);
+                    }
             })
                 .then(conn.destroy()) // Close the connection
         })
@@ -49,9 +53,11 @@ function reseptiJaAinesosaLista(callback){
             conn.query('SELECT * FROM reseptit LEFT JOIN ainesosat on reseptit.id = ainesosat.reseptiID;') // Execute a q
                 .then(result => {
                     var alteredresult = JSON.stringify(result);
-                    console.log("Resepti ja ainesosa lista: " +alteredresult);
+                    console.log("Resepti- ja ainesosalista: " +alteredresult);
 
-                    callback(alteredresult)
+                    if (callback) {
+                        callback(alteredresult);
+                    }
                 })
                 .then(conn.destroy()) // Close the connection
         })
@@ -71,7 +77,9 @@ function reseptiHaku(reseptinNimi, callback) {
                     var alteredresult  = JSON.stringify(result); // turns the mysql query result into string
                     console.log("Haettu resepti: " +alteredresult);
 
-                    callback(alteredresult)
+                    if (callback) {
+                        callback(alteredresult);
+                    }
                 })
                 .then(conn.destroy()) // Close the connection
         })
@@ -89,38 +97,12 @@ function ainesosaHaku(callback) {
             conn.query('SELECT nimi FROM ainesosat WHERE reseptiID="'+reseptiId+'";') // Execute a query
                 .then(result => { // Print the resultsr
                     var alteredresult  = JSON.stringify(result); // turns the mysql query result into string
-                    console.log("Haettu resepti: " +alteredresult);
+                    console.log("Haettu ainesosa: " +alteredresult);
 
-                    callback(alteredresult)
+                    if (callback) {
+                        callback(alteredresult);
+                    }
                 })
-                .then(conn.destroy()) // Close the connection
-        })
-}
-
-function syotaResepti(nimi, valmistusaika, kokkausohje, kuva) {
-    mariadb.createConnection({ // Open a new connection
-        user: 'monty',
-        password: 'metrofilia1',
-        host: 'haxers.ddns.net',
-        port: 3306
-    })
-        .then(conn => {
-            conn.query('use reseptiapi') // Execute a query
-            conn.query('INSERT INTO reseptit(nimi, valmistusaika, kokkausohje, kuva) VALUES("'+nimi+'", '+valmistusaika+', "'+kokkausohje+', "'+kuva+'")') // Execute a query
-                .then(conn.destroy()) // Close the connection
-        })
-}
-
-function syotaAinesosa(nimi, reseptiId) {
-    mariadb.createConnection({ // Open a new connection
-        user: 'monty',
-        password: 'metrofilia1',
-        host: 'haxers.ddns.net',
-        port: 3306
-    })
-        .then(conn => {
-            conn.query('use reseptiapi') // Execute a query
-            conn.query('INSERT INTO ainesosat(nimi, reseptiID) VALUES("'+nimi+'", '+reseptiId+')') // Execute a query
                 .then(conn.destroy()) // Close the connection
         })
 }
@@ -139,21 +121,56 @@ function getReseptiID(reseptiNimi, callback){
                     var alteredresult  = JSON.stringify(result); // turns the mysql query result into string
                     console.log("Haettu reseptiID: " +alteredresult);
 
-                    callback(alteredresult)
+                    if (callback) {
+                        callback(alteredresult);
+                    }
                 })
-                    .then(conn.destroy()) // Close the connection
+                .then(conn.destroy()) // Close the connection
         })
 }
 
+function syotaResepti(nimi, valmistusaika, kokkausohje, kuva) { // strings: nimi, valmistusaika, kuva. int: kokkausohje
+    mariadb.createConnection({ // Open a new connection
+        user: 'monty',
+        password: 'metrofilia1',
+        host: 'haxers.ddns.net',
+        port: 3306
+    })
+        .then(conn => {
+            conn.query('use reseptiapi') // Execute a query
+            conn.query('INSERT INTO reseptit(nimi, valmistusaika, kokkausohje, kuva) VALUES("'+nimi+'", '+valmistusaika+', "'+kokkausohje+'", "'+kuva+'")') // Execute a query
+                .then(conn.destroy()) // Close the connection
+        })
+}
+
+function syotaAinesosa(nimi, reseptiId) { // string: nimi, int: reseptiID
+    mariadb.createConnection({ // Open a new connection
+        user: 'monty',
+        password: 'metrofilia1',
+        host: 'haxers.ddns.net',
+        port: 3306
+    })
+        .then(conn => {
+            conn.query('use reseptiapi') // Execute a query
+            conn.query('INSERT INTO ainesosat(nimi, reseptiID) VALUES("'+nimi+'", '+reseptiId+')') // Execute a query
+                .then(conn.destroy()) // Close the connection
+        })
+}
+
+
 mysqlConnectionTest();
+reseptiLista();
+// testejä
 //reseptiJaAinesosaLista();
 //reseptiLista();
-reseptiHaku('puu');
-syotaResepti("Tuliset tacot",25,"Paista jauheliha, aseta tacojen sisään/päälle ja kaada päälle tulinen kastike.",);
-syotaAinesosa("Kovakuorinen tortilla (Taco)",7);
-syotaAinesosa("Tulinen kastike",7);
-syotaAinesosa("Jauheliha",7);
+//reseptiHaku('puu');
+//syotaResepti("Tuliset tacot",25,"Paista jauheliha, aseta tacojen sisään/päälle ja kaada päälle tulinen kastike.","https://cdn.mytaste.org/i?u=group2%2FM00%2FA6%2F58%2FCgAINlkDKkCAIqysAAY3ipT5Q9s771.jpg&w=330&h=270&c=1");
+//syotaAinesosa("Kovakuorinen tortilla (Taco)",7);
+//syotaAinesosa("Tulinen kastike",7);
+//syotaAinesosa("Jauheliha",7);
+//reseptiLista();
 
 // export functions
 module.exports.reseptiLista = reseptiLista;
 module.exports.reseptiHaku = reseptiHaku;
+//module.exports.reseptiJaAinesOsaLista= reseptiJaAinesosaLista;
