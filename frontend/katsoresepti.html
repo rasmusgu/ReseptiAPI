@@ -9,7 +9,6 @@
         xmlhttp.open("POST", url, true);
         xmlhttp.setRequestHeader("Content-Type", "application/json");
         urlVars = getUrlVars();
-        console.log(urlVars);
         xmlhttp.send('{"id":"'+urlVars.id+'"}');
 
         xmlhttp.onreadystatechange = function () {
@@ -27,12 +26,11 @@
         }
 
         function tulostaResepti(arr){
-            console.log(arr);
+
         }
 
     </script>
 </head>
 <body>
-
 </body>
 </html>
