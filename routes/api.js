@@ -36,9 +36,6 @@ router.post('/api/lisaaResepti', function(req, res) {
     var kuva = req.body.kuva;
     console.log(req.body);
 
-
-
-
     mysqlConnect.syotaResepti(nimi, valmistusaika, kokkausohje, kuva, function (returnvalue) {
 
         console.log(returnvalue.warningStatus);
@@ -52,6 +49,21 @@ router.post('/api/lisaaResepti', function(req, res) {
 
     })
 })
+
+
+router.get('/api/haeReseptiById', function(req, res, next){
+
+    var id = req.body.id;
+
+    console.log(req.body.id);
+
+    mysqlConnect.haeReseptiById(id, function(returnvalue){         //täytyy laittaa reseptilistalle parametrina funktio, minkä se osaa ajaa myöhemmin
+        console.log(returnvalue)
+        res.send(JSON.parse(returnvalue));
+    })
+
+})
+
 
 
 
