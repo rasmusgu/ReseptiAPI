@@ -100,12 +100,13 @@ function ainesosaHaku(reseptiId) {
                         console.log(row)
                     }
                 })
-                .then(conn.destroy()) // Close the connection
+                .then(conn.destroy()); // Close the connection
             return result
         })
 }
 
-function syotaResepti(nimi, valmistusaika, kokkausohje, kuva) {
+function syotaResepti(nimi, valmistusaika, kokkausohje, kuva, callback) {
+    console.log("syota resepti")
     mariadb.createConnection({ // Open a new connection
         user: 'monty',
         password: 'metrofilia1',
@@ -114,10 +115,17 @@ function syotaResepti(nimi, valmistusaika, kokkausohje, kuva) {
     })
         .then(conn => {
             conn.query('use reseptiapi') // Execute a query
-            conn.query('INSERT INTO reseptit(nimi, valmistusaika, kokkausohje, kuva) VALUES("'+nimi+'", '+valmistusaika+', "'+kokkausohje+', "'+kuva+'")') // Execute a query
-                .then(conn.destroy()) // Close the connection
-        })
+            conn.query('INSERT INTO reseptit(nimi, valmistusaika, kokkausohje, kuva) VALUES("'+nimi+'", '+valmistusaika+', "'+kokkausohje+'", "'+kuva+'")') // Execute a quer
+
+            console.log("resepti lisätty");
+
+            conn.destroy()
+        }); // Close the connection
+
+
 }
+
+
 
 function syotaAinesosa(nimi, reseptiId) {
     mariadb.createConnection({ // Open a new connection
@@ -150,11 +158,12 @@ function getReseptiID(reseptiNimi){
 mysqlConnectionTest();
 //reseptiJaAinesosaLista();
 //reseptiLista();
-reseptiHaku('puu');
+//reseptiHaku('puu');
 //syotaResepti("Siskonmakkara -keitto",95,"Pilko ainekset, keitä vesi ja laita pilkotut ainekset veteen.");
 //syotaAinesosa("Siskonmakkara",6);
 //syotaAinesosa("Peruna",6);
 //syotaAinesosa("Porkkana",6);
 
 module.exports.reseptiLista = reseptiLista;
-module.exports.reseptiHaku = reseptiHaku;// export your functuion
+module.exports.reseptiHaku = reseptiHaku;
+module.exports.syotaResepti = syotaResepti;// export your functuion
