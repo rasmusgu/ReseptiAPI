@@ -55,7 +55,6 @@ function reseptiJaAinesosaLista(callback){
                 .then(result => {
                     var alteredresult = JSON.stringify(result);
                     console.log("Resepti- ja ainesosalista: " +alteredresult);
-
                     if (callback) {
                         callback(alteredresult);
                     }
@@ -77,7 +76,6 @@ function reseptiHaku(reseptinNimi, callback) {
                 .then(result => { // Print the results
                     var alteredresult  = JSON.stringify(result); // turns the mysql query result into string
                     console.log("Haettu resepti: " +alteredresult);
-
                     if (callback) {
                         callback(alteredresult);
                     }
@@ -99,21 +97,15 @@ function ainesosaHaku(callback) {
                 .then(result => { // Print the resultsr
                     var alteredresult  = JSON.stringify(result); // turns the mysql query result into string
                     console.log("Haettu ainesosa: " +alteredresult);
-
                     if (callback) {
                         callback(alteredresult);
                     }
                 })
-
                 .then(conn.destroy()); // Close the connection
-            return result
         })
 }
 
-
-
 function getReseptiID(reseptiNimi, callback){
-
     mariadb.createConnection({ // Open a new connection
         user: 'monty',
         password: 'metrofilia1',
@@ -121,38 +113,69 @@ function getReseptiID(reseptiNimi, callback){
         port: 3306
     })
         .then(conn => {
-
             conn.query('use reseptiapi') // Execute a query
             conn.query('INSERT INTO reseptit(nimi, valmistusaika, kokkausohje, kuva) VALUES("'+nimi+'", '+valmistusaika+', "'+kokkausohje+'", "'+kuva+'")') // Execute a quer
-
-            console.log("resepti lisätty");
-
+            console.log("Reseptin ID: ");
             conn.destroy()
         }); // Close the connection
-
-
 }
 
-
-
-function syotaAinesosa(nimi, reseptiId) {
-
-            conn.query('use reseptiapi') // Choose database
-            conn.query('SELECT id FROM TABLE reseptit WHERE nimi='+reseptiNimi+';') // Execute query
-                .then(result => { // Print the resultsr
-                    var alteredresult  = JSON.stringify(result); // turns the mysql query result into string
-                    console.log("Haettu reseptiID: " +alteredresult);
-
+function haeReseptiByID(id, callback) {
+    mariadb.createConnection({ // Open a new connection
+        user: 'monty',
+        password: 'metrofilia1',
+        host: 'haxers.ddns.net',
+        port: 3306
+    })
+        .then(conn => {
+            conn.query('use reseptiapi') // select database
+            //conn.query("SELECT * FROM reseptit WHERE id='"+id+"';") // searches recipe based on id
+            conn.query("SELECT r.`id`, r.`nimi`, r.`valmistusaika`, r.`kokkausohje`, r.`kuva`,  GROUP_CONCAT(a.`nimi` separator ', ') FROM `reseptit` r LEFT JOIN `ainesosat` a on a.`reseptiID` = r.`id` and r.`id`="+id+" GROUP BY r.`id`, r.`nimi`;")
+                /*.then(result => {
+                    var alteredresult  = JSON.stringify(result);
+                    console.log("Reseptilista: " +alteredresult);
                     if (callback) {
                         callback(alteredresult);
                     }
+                    */
+                .then((res) => {
+                    result = res;
+                    console.log(result);
+                    conn.end();
+                    callback && callback(result)
                 })
-                .then(conn.destroy()) // Close the connection
+                .catch(err => {
+                    //handle error
+                    result = err;
+                    console.log(result);
+                    conn.end();
+                    callback && callback(result)
+                })
+                //.then(conn.destroy()) // Close the connection
+        })
+}
 
+
+function syotaAinesosa(nimi, reseptiId) {
+    mariadb.createConnection({ // Open a new connection
+        user: 'monty',
+        password: 'metrofilia1',
+        host: 'haxers.ddns.net',
+        port: 3306
+    })
+        .then(conn => {
+            conn.query('use reseptiapi') // Choose database
+            conn.query('INSERT INTO ainesosat(nimi, reseptiID) VALUES("'+nimi+'",'+reseptiId+');') // Execute query
+                .catch(err => {
+                    //handle error
+                    console.log("Syötetty ainesosa: "+nimi);
+                    conn.end();
+                })
+            //.then(conn.destroy()) // Close the connection
+        })
 }
 
 function syotaResepti(nimi, valmistusaika, kokkausohje, kuva, callback) { // strings: nimi, valmistusaika, kuva. int: kokkausohje
-
     mariadb.createConnection({ // Open a new connection
         user: 'monty',
         password: 'metrofilia1',
@@ -164,46 +187,30 @@ function syotaResepti(nimi, valmistusaika, kokkausohje, kuva, callback) { // str
             conn.query('use reseptiapi') // Execute a query
             conn.query('INSERT INTO reseptit(nimi, valmistusaika, kokkausohje, kuva) VALUES("'+nimi+'", '+valmistusaika+', "'+kokkausohje+'", "'+kuva+'")') // Execute a query
                 .then((res) => {
-                    result= res;
+                    result = res;
                     console.log(result); // { affectedRows: 1, insertId: 1, warningStatus: 0 }
                     conn.end();
-                    callback(result)
+                    callback && callback(result)
                 })
                 .catch(err => {
                     //handle error
-                    result= err;
+                    result = err;
                     console.log(result);
                     conn.end();
-                    callback(result)
+                    callback && callback(result)
                 })
-
-
-
-
         })
 }
 
 
-
-
+// mySQL connection test
 mysqlConnectionTest();
-//reseptiLista();
-// testejä
-//reseptiJaAinesosaLista();
-//reseptiLista();
-//reseptiHaku('puu');
 
-//syotaResepti("Siskonmakkara -keitto",95,"Pilko ainekset, keitä vesi ja laita pilkotut ainekset veteen.");
-//syotaAinesosa("Siskonmakkara",6);
-//syotaAinesosa("Peruna",6);
-//syotaAinesosa("Porkkana",6);
+haeReseptiByID(6)
 
 
 // export functions
 module.exports.reseptiLista = reseptiLista;
 module.exports.reseptiHaku = reseptiHaku;
-
-module.exports.syotaResepti = syotaResepti;// export your functuion
-
-//module.exports.reseptiJaAinesOsaLista= reseptiJaAinesosaLista;
+module.exports.syotaResepti = syotaResepti;
 
