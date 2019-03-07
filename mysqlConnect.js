@@ -130,7 +130,7 @@ function haeReseptiByID(id, callback) {
         .then(conn => {
             conn.query('use reseptiapi') // select database
             //conn.query("SELECT * FROM reseptit WHERE id='"+id+"';") // searches recipe based on id
-            conn.query("SELECT r.`id`, r.`nimi`, r.`valmistusaika`, r.`kokkausohje`, r.`kuva`,  GROUP_CONCAT(a.`nimi` separator ', ') FROM `reseptit` r LEFT JOIN `ainesosat` a on a.`reseptiID` = r.`id` and r.`id`="+id+" GROUP BY r.`id`, r.`nimi`;")
+            conn.query("SELECT r.`id`, r.`nimi`, r.`valmistusaika`, r.`kokkausohje`, r.`kuva`,  GROUP_CONCAT(a.`nimi` separator ', ') FROM `reseptit` r LEFT JOIN `ainesosat` a on a.`reseptiID` = r.`id` and r.`id`=? GROUP BY r.`id`, r.`nimi`;",[id])
                 /*.then(result => {
                     var alteredresult  = JSON.stringify(result);
                     console.log("Reseptilista: " +alteredresult);
@@ -138,6 +138,15 @@ function haeReseptiByID(id, callback) {
                         callback(alteredresult);
                     }
                     */
+                .then(result => { // Print the results
+                    var alteredresult  = JSON.stringify(result); // turns the mysql query result into string
+                    console.log("Haettu resepti: " +alteredresult);
+                    if (callback) {
+                        callback(alteredresult);
+                    }
+                })
+                .then(conn.destroy()) // Close the connection
+                /*
                 .then((res) => {
                     result = res;
                     console.log(result);
@@ -151,10 +160,9 @@ function haeReseptiByID(id, callback) {
                     conn.end();
                     callback && callback(result)
                 })
-                //.then(conn.destroy()) // Close the connection
+                */
         })
 }
-
 
 function syotaAinesosa(nimi, reseptiId) {
     mariadb.createConnection({ // Open a new connection
@@ -205,8 +213,8 @@ function syotaResepti(nimi, valmistusaika, kokkausohje, kuva, callback) { // str
 
 // mySQL connection test
 mysqlConnectionTest();
-
 haeReseptiByID(6)
+//reseptiLista()
 
 // export functions
 module.exports.reseptiLista = reseptiLista;
