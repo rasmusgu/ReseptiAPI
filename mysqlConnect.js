@@ -48,21 +48,18 @@ function reseptiJaAinesosaLista(callback){
     })
         .then(conn => {
             conn.query('use reseptiapi') // select database
-            conn.query('SELECT * FROM reseptit LEFT JOIN ainesosat on reseptit.id = ainesosat.reseptiID;;') // Execute a q
+            conn.query('SELECT * FROM reseptit LEFT JOIN ainesosat on reseptit.id = ainesosat.reseptiID;') // Execute a q
                 .then(result => {
-                    var alteredresult  = JSON.stringify(result);
+                    var alteredresult = JSON.stringify(result);
                     console.log("Resepti ja ainesosa lista: " +alteredresult);
-                    //}
-                    callback(alteredresult)
-                    //return alteredresult;
 
+                    callback(alteredresult)
                 })
                 .then(conn.destroy()) // Close the connection
         })
 }
 
-function reseptiHaku(callback, reseptinNimi) {
-    reseptinNimiLainausmerkkienKera = "/"
+function reseptiHaku(reseptinNimi, callback) {
     mariadb.createConnection({ // Open a new connection
         user: 'monty',
         password: 'metrofilia1',
@@ -73,9 +70,10 @@ function reseptiHaku(callback, reseptinNimi) {
             conn.query('use reseptiapi') // Execute a query
             conn.query('SELECT * FROM reseptit WHERE nimi="'+reseptinNimi+'";') // Execute a query
                 .then(result => { // Print the results
-                    for (row of result) {
-                        console.log(row)
-                    }
+                    var alteredresult  = JSON.stringify(result); // turns the mysql query result into string
+                    console.log("Haettu resepti: " +alteredresult);
+
+                    callback(alteredresult)
                     })
                 .then(conn.destroy()) // Close the connection
             return result
@@ -101,7 +99,6 @@ function ainesosaHaku(reseptiId) {
                 .then(conn.destroy()) // Close the connection
             return result
         })
-
 }
 
 function syotaResepti(nimi, valmistusaika, kokkausohje, kuva) {
