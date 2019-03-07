@@ -8,15 +8,13 @@
         xmlhttp.onreadystatechange = function() {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
                 recipeArr = JSON.parse(xmlhttp.responseText);
-                console.log("JSON response: ");
-                console.log(recipeArr);
-                populateTable(recipeArr);
+                kirjoitaTaulu(recipeArr);
             }
         }
         xmlhttp.open("GET", url, true);
         xmlhttp.send();
 
-        function populateTable(arr){
+        function kirjoitaTaulu(arr){
             for(i = 0; i < arr.length; i++){
                 taulu = document.getElementById("reseptiTaulu");
                 rivi = document.createElement("tr");
