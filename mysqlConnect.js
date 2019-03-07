@@ -40,6 +40,10 @@ function reseptiLista(callback) {
         })
 }
 
+function reseptiJaAinesosaLista(){
+
+}
+
 function reseptiHaku(reseptinNimi) {
     mariadb.createConnection({ // Open a new connection
         user: 'monty',
