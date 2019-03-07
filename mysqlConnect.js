@@ -31,9 +31,7 @@ function reseptiLista(callback) {
                 .then(result => {
                     var alteredresult  = JSON.stringify(result);
                         console.log("reseptilista " +alteredresult);
-                    //}
                     callback(alteredresult)
-                    //return alteredresult;
             })
                 .then(conn.destroy()) // Close the connection
         })
@@ -68,24 +66,18 @@ function reseptiHaku(reseptinNimi, callback) {
     })
         .then(conn => {
             conn.query('use reseptiapi') // Execute a query
-            conn.query('SELECT * FROM reseptit WHERE nimi LIKE "%'+reseptinNimi+'%";')//,[reseptinNimi]) // Execute a query
+            conn.query('SELECT * FROM reseptit WHERE nimi LIKE "%'+reseptinNimi+'%";')//?;',[reseptinNimi]) // Execute a query
                 .then(result => { // Print the results
                     var alteredresult  = JSON.stringify(result); // turns the mysql query result into string
                     console.log("Haettu resepti: " +alteredresult);
 
                     callback(alteredresult)
-
-                    //callback(JSON.stringify(result));
-                    })
-
+                })
                 .then(conn.destroy()) // Close the connection
-            //return result
-
         })
-
 }
 
-function ainesosaHaku(reseptiId) {
+function ainesosaHaku(callback) {
     mariadb.createConnection({ // Open a new connection
         user: 'monty',
         password: 'metrofilia1',
@@ -96,12 +88,12 @@ function ainesosaHaku(reseptiId) {
             conn.query('use reseptiapi') // Execute a query
             conn.query('SELECT nimi FROM ainesosat WHERE reseptiID="'+reseptiId+'";') // Execute a query
                 .then(result => { // Print the resultsr
-                    for (row of result) {
-                        console.log(row)
-                    }
+                    var alteredresult  = JSON.stringify(result); // turns the mysql query result into string
+                    console.log("Haettu resepti: " +alteredresult);
+
+                    callback(alteredresult)
                 })
                 .then(conn.destroy()) // Close the connection
-            return result
         })
 }
 
@@ -133,7 +125,7 @@ function syotaAinesosa(nimi, reseptiId) {
         })
 }
 
-function getReseptiID(reseptiNimi){
+function getReseptiID(reseptiNimi, callback){
     mariadb.createConnection({ // Open a new connection
         user: 'monty',
         password: 'metrofilia1',
@@ -143,7 +135,13 @@ function getReseptiID(reseptiNimi){
         .then(conn => {
             conn.query('use reseptiapi') // Choose database
             conn.query('SELECT id FROM TABLE reseptit WHERE nimi='+reseptiNimi+';') // Execute query
-                .then(conn.destroy()) // Close the connection
+                .then(result => { // Print the resultsr
+                    var alteredresult  = JSON.stringify(result); // turns the mysql query result into string
+                    console.log("Haettu reseptiID: " +alteredresult);
+
+                    callback(alteredresult)
+                })
+                    .then(conn.destroy()) // Close the connection
         })
 }
 
@@ -151,10 +149,11 @@ mysqlConnectionTest();
 //reseptiJaAinesosaLista();
 //reseptiLista();
 reseptiHaku('puu');
-//syotaResepti("Siskonmakkara -keitto",95,"Pilko ainekset, keitä vesi ja laita pilkotut ainekset veteen.");
-//syotaAinesosa("Siskonmakkara",6);
-//syotaAinesosa("Peruna",6);
-//syotaAinesosa("Porkkana",6);
+syotaResepti("Tuliset tacot",25,"Paista jauheliha, aseta tacojen sisään/päälle ja kaada päälle tulinen kastike.",);
+syotaAinesosa("Kovakuorinen tortilla (Taco)",7);
+syotaAinesosa("Tulinen kastike",7);
+syotaAinesosa("Jauheliha",7);
 
+// export functions
 module.exports.reseptiLista = reseptiLista;
-module.exports.reseptiHaku = reseptiHaku;// export your functuion
+module.exports.reseptiHaku = reseptiHaku;
