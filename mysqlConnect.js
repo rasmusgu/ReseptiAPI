@@ -36,7 +36,6 @@ function reseptiLista() {
                 .then(conn.destroy()) // Close the connection
             return result
         })
-
 }
 
 function reseptiHaku(reseptinNimi) {
