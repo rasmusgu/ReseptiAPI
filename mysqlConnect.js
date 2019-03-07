@@ -109,12 +109,27 @@ function syotaAinesosa(nimi, reseptiId) {
         })
 }
 
+function getReseptiID(reseptiNimi){
+    mariadb.createConnection({ // Open a new connection
+        user: 'monty',
+        password: 'metrofilia1',
+        host: 'haxers.ddns.net',
+        port: 3306
+    })
+        .then(conn => {
+            conn.query('use reseptiapi') // Choose database
+            conn.query('SELECT id FROM TABLE reseptit WHERE nimi='reseptiNimi';' // Execute query
+                .then(conn.destroy()) // Close the connection
+        })
+}
+
 mysqlConnectionTest();
 reseptiLista();
 //reseptiHaku('Pasta bolognese');
 //ainesosaHaku(1
-//syotaResepti("Tosca Omenat",55,"Pilko omenat ja laita hiutaleiden kanssa uuniin");
-//syotaAinesosa("Kaurahiutaleet", 5);
-//syotaAinesosa("Omenat",5);
+//syotaResepti("Siskonmakkara -keitto",95,"Pilko ainekset, keitä vesi ja laita pilkotut ainekset veteen.");
+syotaAinesosa("Siskonmakkara",6);
+syotaAinesosa("Peruna",6);
+syotaAinesosa("Porkkana",6);
 
 module.exports.reseptiLista = reseptiLista; // export your functuion
