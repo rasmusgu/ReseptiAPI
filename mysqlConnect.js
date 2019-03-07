@@ -26,10 +26,11 @@ function reseptiLista(callback) {
         port: 3306
     })
         .then(conn => {
-            conn.query('use reseptiapi') // Execute a query
-            //conn.query("SELECT r.`id`, r.`nimi`, GROUP_CONCAT(a.`nimi` separator ', ') FROM `reseptit` r LEFT JOIN `ainesosat` a on a.`reseptiID` = r.`id` GROUP BY r.`id`, r.`nimi`;")
-            //conn.query("SELECT r.`id`, r.`nimi`, r.`valmistusaika`,  Ainesosat(a.`nimi` separator ', ') FROM `reseptit` r LEFT JOIN `ainesosat` a on a.`reseptiID` = r.`id` GROUP BY r.`id`, r.`nimi`;")
-            conn.query('SELECT * FROM reseptit')// Execute a query
+            conn.query('use reseptiapi') // select database
+            // reseptilista + ainesosat
+            conn.query("SELECT r.`id`, r.`nimi`, r.`valmistusaika`, r.`kokkausohje`, r.`kuva`,  GROUP_CONCAT(a.`nimi` separator ', ') FROM `reseptit` r LEFT JOIN `ainesosat` a on a.`reseptiID` = r.`id` GROUP BY r.`id`, r.`nimi`;")
+            // perus reseptilista
+            //conn.query('SELECT * FROM reseptit')
                 .then(result => {
                     var alteredresult  = JSON.stringify(result);
                     console.log("Reseptilista: " +alteredresult);
