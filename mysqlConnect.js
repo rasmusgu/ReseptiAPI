@@ -120,7 +120,7 @@ function getReseptiID(reseptiNimi, callback){
         }); // Close the connection
 }
 
-function haeReseptiByID(id, callback) {
+function haeReseptiById(id, callback) {
     mariadb.createConnection({ // Open a new connection
         user: 'monty',
         password: 'metrofilia1',
@@ -206,10 +206,10 @@ function syotaResepti(nimi, valmistusaika, kokkausohje, kuva, callback) { // str
 // mySQL connection test
 mysqlConnectionTest();
 
-haeReseptiByID(6)
+//haeReseptiById(6)
 
 // export functions
 module.exports.reseptiLista = reseptiLista;
 module.exports.reseptiHaku = reseptiHaku;
 module.exports.syotaResepti = syotaResepti;
-module.exports.haeReseptiByID = haeReseptiByID;
+module.exports.haeReseptiById = haeReseptiById;

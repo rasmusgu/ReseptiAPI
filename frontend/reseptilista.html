@@ -30,9 +30,15 @@
                 kuvaKol = document.createElement("td")
                 var img = document.createElement('img');
                 img.src = arr[i].kuva;
+                img.alt = "ei kuvaa";
+
+                var link = document.createElement("a");
+                link.href = "http://localhost:3000/katsoresepti?id="+arr[i].id;
+                link.appendChild(img)
+
                 img.style.width = '100px';
                 img.style.width = '100px';
-                kuvaKol.appendChild(img);
+                kuvaKol.appendChild(link);
 
                 rivi.appendChild(nimiKol);
                 rivi.appendChild(valmistusaikaKol);

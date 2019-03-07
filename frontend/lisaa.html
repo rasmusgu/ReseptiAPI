@@ -12,6 +12,11 @@
                 console.log("added successfully")
                 window.location = "http://localhost:3000";
             }
+            if (xmlhttp.status != 500) {
+                return;
+            }
+            console.log("error")
+            window.location = "http://localhost:3000";
         }
         xmlhttp.open("POST", url, true);
         xmlhttp.setRequestHeader("Content-Type", "application/json");
