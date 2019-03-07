@@ -33,18 +33,11 @@ function reseptiLista(callback) {
                         console.log("reseptilista " +alteredresult);
                     //}
                     callback(alteredresult)
-
-
-
-
-                //return alteredresult;
+                    //return alteredresult;
 
             })
-
                 .then(conn.destroy()) // Close the connection
-
         })
-
 }
 
 function reseptiHaku(reseptinNimi) {
@@ -136,8 +129,8 @@ mysqlConnectionTest();
 //reseptiHaku('Pasta bolognese');
 //ainesosaHaku(1
 //syotaResepti("Siskonmakkara -keitto",95,"Pilko ainekset, keitä vesi ja laita pilkotut ainekset veteen.");
-syotaAinesosa("Siskonmakkara",6);
-syotaAinesosa("Peruna",6);
-syotaAinesosa("Porkkana",6);
+//syotaAinesosa("Siskonmakkara",6);
+//syotaAinesosa("Peruna",6);
+//syotaAinesosa("Porkkana",6);
 
 module.exports.reseptiLista = reseptiLista; // export your functuion
