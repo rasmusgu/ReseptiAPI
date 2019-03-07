@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lisää resepti</title>
+    <script>
+        var url = "http://localhost:3000/api/lisaaResepti";
+        var xmlhttp = new XMLHttpRequest();
+
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                console.log("added successfully")
+                window.location = "http://localhost:3000";
+            }
+        }
+        xmlhttp.open("POST", url, true);
+        xmlhttp.setRequestHeader("Content-Type", "application/json");
+
+        function lisaa(){
+            console.log("sending recipe").values();
+            nimi = document.getElementsByName("reseptiNimi").values();
+            valmistusaika = document.getElementsByName("valmistusaika").values();
+            valmistusohje = document.getElementsByName("valmistusohje").values();
+            kuva = document.getElementsByName("kuva").values();
+
+            xmlhttp.send('{"nimi":"'+nimi+'","valmistusaika":"'+valmistusaika+'","kokkausohje":"'+valmistusohje+'","kuva":"'+kuva+'"}');
+        }
+
+    </script>
+</head>
+<body>
+<form action="javascript:lisaa()">
+    Reseptin nimi<br>
+    <input type="text" name="reseptiNimi"><br>
+    Valmistusaika minuuteissa<br>
+    <input type="number" name="valmistusaika"><br><br>
+    Valmistusohje<br>
+    <input type="text" name="valmistusohje"><br><br>
+    Kuva (url)<br>
+    <input type="url" name="kuva"><br><br>
+    <input type="submit" name="lähetä" value="Lähetä">
+</form>
+</body>
+</html>

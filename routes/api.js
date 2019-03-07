@@ -29,7 +29,7 @@ router.post('/api/haeResepti', function(req, res){
     })
 })
 
-router.get('/api/lisaaResepti', function(req, res){
+router.post('/api/lisaaResepti', function(req, res){
     var nimi = req.body.nimi;
     var valmistusaika = req.body.valmistusaika;
     var kokkausohje= req.body.kokkausohje;
