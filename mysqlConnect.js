@@ -208,9 +208,8 @@ mysqlConnectionTest();
 
 haeReseptiByID(6)
 
-
 // export functions
 module.exports.reseptiLista = reseptiLista;
 module.exports.reseptiHaku = reseptiHaku;
 module.exports.syotaResepti = syotaResepti;
-
+module.exports.haeReseptiByID = haeReseptiByID;
