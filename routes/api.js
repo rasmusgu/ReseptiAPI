@@ -13,7 +13,6 @@ router.get('/api/list', function(req, res, next){
     console.log(returnvalue)
     res.send(JSON.parse(returnvalue));
   })
-//test
 
 })
 
