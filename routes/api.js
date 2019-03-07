@@ -8,9 +8,14 @@ router.get('/api', function(req, res, next) {
 });
 
 router.get('/api/list', function(req, res, next){
-  let result = mysqlConnect.reseptiLista();
-  console.log(result);1
-  res.json(JSON.parse(result);
+
+
+  mysqlConnect.reseptiLista(function(returnvalue){         //täytyy laittaa reseptilistalle parametrina funktio, minkä se osaa ajaa myöhemmin
+    console.log(returnvalue)
+    res.send(JSON.parse(returnvalue));
+  })
+
+
 })
 
 module.exports = router;
