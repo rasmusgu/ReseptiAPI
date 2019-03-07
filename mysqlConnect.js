@@ -27,9 +27,9 @@ function reseptiLista(callback) {
     })
         .then(conn => {
             conn.query('use reseptiapi') // Execute a query
-            //conn.query('SELECT r.`id`, r.`nimi`, Ainesosat(ainesosat.`nimi` separator ', ') FROM `reseptit` r LEFT JOIN `ainesosat` a on a.`reseptiID` = r.`id` GROUP BY r.`id`, r.`nimi`');
-            conn.query("SELECT r.`id`, r.`nimi`, GROUP_CONCAT(a.`nimi` separator ', ') FROM `reseptit` r LEFT JOIN `ainesosat` a on a.`reseptiID` = r.`id` GROUP BY r.`id`, r.`nimi`;")
-            //conn.query('SELECT * FROM reseptit')// Execute a query
+            //conn.query("SELECT r.`id`, r.`nimi`, GROUP_CONCAT(a.`nimi` separator ', ') FROM `reseptit` r LEFT JOIN `ainesosat` a on a.`reseptiID` = r.`id` GROUP BY r.`id`, r.`nimi`;")
+            //conn.query("SELECT r.`id`, r.`nimi`, r.`valmistusaika`,  Ainesosat(a.`nimi` separator ', ') FROM `reseptit` r LEFT JOIN `ainesosat` a on a.`reseptiID` = r.`id` GROUP BY r.`id`, r.`nimi`;")
+            conn.query('SELECT * FROM reseptit')// Execute a query
                 .then(result => {
                     var alteredresult  = JSON.stringify(result);
                     console.log("Reseptilista: " +alteredresult);
@@ -159,16 +159,11 @@ function syotaAinesosa(nimi, reseptiId) { // string: nimi, int: reseptiID
 
 
 mysqlConnectionTest();
-reseptiLista();
+//reseptiLista();
 // testejä
 //reseptiJaAinesosaLista();
 //reseptiLista();
 //reseptiHaku('puu');
-//syotaResepti("Tuliset tacot",25,"Paista jauheliha, aseta tacojen sisään/päälle ja kaada päälle tulinen kastike.","https://cdn.mytaste.org/i?u=group2%2FM00%2FA6%2F58%2FCgAINlkDKkCAIqysAAY3ipT5Q9s771.jpg&w=330&h=270&c=1");
-//syotaAinesosa("Kovakuorinen tortilla (Taco)",7);
-//syotaAinesosa("Tulinen kastike",7);
-//syotaAinesosa("Jauheliha",7);
-//reseptiLista();
 
 // export functions
 module.exports.reseptiLista = reseptiLista;

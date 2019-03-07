@@ -16,11 +16,11 @@ router.get('/api/lista', function(req, res, next){
 
 })
 
-router.get('/api/haeResepti', function(req, res){
-    var recipe = req.query.receipe;
-    console.log(req.query.receipe);
+router.post('/api/haeResepti', function(req, res){
+    var recipe = req.body.haku;
+    console.log(req.body);
 
-  mysqlConnect.reseptiHaku(recipe, function(returnvalue){
+    mysqlConnect.reseptiHaku(recipe, function(returnvalue){
       console.log(returnvalue)
       res.send(JSON.parse(returnvalue));
     })
