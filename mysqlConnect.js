@@ -119,7 +119,7 @@ function getReseptiID(reseptiNimi){
     })
         .then(conn => {
             conn.query('use reseptiapi') // Choose database
-            conn.query('SELECT id FROM TABLE reseptit WHERE nimi='+reseptiNimi+';') // Execute query
+            conn.query('SELECT id FROM TABLE reseptit WHERE nimi='+reseptiNifmi+';') // Execute query
                 .then(conn.destroy()) // Close the connection
         })
 }
