@@ -1,4 +1,4 @@
-var mariadb = require('mariadb')
+var mariadb = require('mariadb');
 
 function mysqlConnectionTest() {
     mariadb.createConnection({ // Open a new connection
@@ -74,9 +74,13 @@ function reseptiHaku(reseptinNimi, callback) {
                     console.log("Haettu resepti: " +alteredresult);
 
                     callback(alteredresult)
+
+                    //callback(JSON.stringify(result));
                     })
+
                 .then(conn.destroy()) // Close the connection
-            return result
+            //return result
+
         })
 
 }
@@ -144,13 +148,13 @@ function getReseptiID(reseptiNimi){
 }
 
 mysqlConnectionTest();
-//reseptiJaAinesosaLista();
+reseptiJaAinesosaLista();
 //reseptiLista();
 reseptiHaku('Puuro');
-//ainesosaHaku(1
 //syotaResepti("Siskonmakkara -keitto",95,"Pilko ainekset, keitä vesi ja laita pilkotut ainekset veteen.");
 //syotaAinesosa("Siskonmakkara",6);
 //syotaAinesosa("Peruna",6);
 //syotaAinesosa("Porkkana",6);
 
-module.exports.reseptiLista = reseptiLista; // export your functuion
+module.exports.reseptiLista = reseptiLista;
+module.exports.reseptiHaku = reseptiHaku;// export your functuion
