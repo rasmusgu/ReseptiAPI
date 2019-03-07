@@ -29,23 +29,27 @@ router.post('/api/haeResepti', function(req, res){
     })
 })
 
-router.post('/api/lisaaResepti', function(req, res){
+router.post('/api/lisaaResepti', function(req, res) {
     var nimi = req.body.nimi;
     var valmistusaika = req.body.valmistusaika;
     var kokkausohje= req.body.kokkausohje;
     var kuva = req.body.kuva;
     console.log(req.body);
 
-    /*var nimi = "kalakeitto";
-    var valmistusaika = 15;
-    var kokkausohje= "lisaa kalat ja keitto";
-    var kuva = "";
-    */
 
-    mysqlConnect.syotaResepti(nimi, valmistusaika, kokkausohje, kuva , function(returnvalue){
 
-        console.log(returnvalue);
-        res.send(JSON.parse(returnvalue));
+
+    mysqlConnect.syotaResepti(nimi, valmistusaika, kokkausohje, kuva, function (returnvalue) {
+
+        console.log(returnvalue.warningStatus);
+
+        if (returnvalue.warningStatus == 0){
+            res.sendStatus(200);
+        }else{
+            res.sendStatus(500);
+        }
+
+
     })
 })
 
