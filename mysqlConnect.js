@@ -8,10 +8,10 @@ function mysqlConnectionTest() {
         port: 3306
     })
         .then(conn => {
-            conn.query('SELECT "Hello world!" as my_message') // Execute a query
+            conn.query('SELECT "mySQL connection succesful!" as my_message') // Execute a query
                 .then(result => { // Print the results
                     for (row of result) {
-                        //console.log(row)
+                        console.log(row)
                     }
                 })
                 .then(conn.destroy()) // Close the connection
@@ -119,7 +119,7 @@ function getReseptiID(reseptiNimi){
     })
         .then(conn => {
             conn.query('use reseptiapi') // Choose database
-            conn.query('SELECT id FROM TABLE reseptit WHERE nimi='reseptiNimi';' // Execute query
+            conn.query('SELECT id FROM TABLE reseptit WHERE nimi='+reseptiNimi+';') // Execute query
                 .then(conn.destroy()) // Close the connection
         })
 }
