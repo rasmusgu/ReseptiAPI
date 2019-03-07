@@ -18,4 +18,8 @@ router.get('/lisaa', function(req, res, next) {
   res.sendFile('lisaa.html', {root: 'frontend/'});
 });
 
+router.get('/katsoresepti', function(req, res, next) {
+  res.sendFile('katsoresepti.html', {root: 'frontend/'});
+});
+
 module.exports = router;

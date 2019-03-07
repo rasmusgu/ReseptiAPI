@@ -51,7 +51,7 @@ router.post('/api/lisaaResepti', function(req, res) {
 })
 
 
-router.get('/api/haeReseptiById', function(req, res, next){
+router.post('/api/haeReseptiById', function(req, res, next){
 
     var id = req.body.id;
 

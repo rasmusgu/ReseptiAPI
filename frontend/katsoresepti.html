@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        var xmlhttp = new XMLHttpRequest();
+        var url = "http://localhost:3000/api/haeReseptiById";
+        xmlhttp.open("POST", url, true);
+        xmlhttp.setRequestHeader("Content-Type", "application/json");
+        urlVars = getUrlVars();
+        console.log(urlVars);
+        xmlhttp.send('{"id":"'+urlVars.id+'"}');
+
+        xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+                var resultArr = JSON.parse(xmlhttp.responseText);
+                tulostaResepti(resultArr);
+            }
+        };
+        function getUrlVars() {
+            var vars = {};
+            var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+                vars[key] = value;
+            });
+            return vars;
+        }
+
+        function tulostaResepti(arr){
+            console.log(arr);
+        }
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>
