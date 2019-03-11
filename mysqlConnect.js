@@ -11,7 +11,7 @@ function mysqlConnectionTest() {
             conn.query('SELECT "mySQL connection succesful!" as my_message') // Execute a query
                 .then(result => { // Print the results
                     for (row of result) {
-                        console.log(row)
+                        //console.log(row)
                     }
                 })
                 .then(conn.destroy()) // Close the connection
@@ -33,7 +33,7 @@ function reseptiLista(callback) {
             //conn.query('SELECT * FROM reseptit')
                 .then(result => {
                     var alteredresult  = JSON.stringify(result);
-                    console.log("Reseptilista: " +alteredresult);
+                    //console.log("Reseptilista: " +alteredresult);
                     if (callback) {
                         callback(alteredresult);
                     }
@@ -54,7 +54,7 @@ function reseptiJaAinesosaLista(callback){
             conn.query('SELECT * FROM reseptit LEFT JOIN ainesosat on reseptit.id = ainesosat.reseptiID;') // Execute a q
                 .then(result => {
                     var alteredresult = JSON.stringify(result);
-                    console.log("Resepti- ja ainesosalista: " +alteredresult);
+                    //console.log("Resepti- ja ainesosalista: " +alteredresult);
                     if (callback) {
                         callback(alteredresult);
                     }
@@ -75,7 +75,7 @@ function reseptiHaku(reseptinNimi, callback) {
             conn.query('SELECT * FROM reseptit WHERE nimi LIKE "%'+reseptinNimi+'%";')//?;',[reseptinNimi]) // Execute a query
                 .then(result => { // Print the results
                     var alteredresult  = JSON.stringify(result); // turns the mysql query result into string
-                    console.log("Haettu resepti: " +alteredresult);
+                    //console.log("Haettu resepti: " +alteredresult);
                     if (callback) {
                         callback(alteredresult);
                     }
@@ -96,7 +96,7 @@ function ainesosaHaku(callback) {
             conn.query('SELECT nimi FROM ainesosat WHERE reseptiID="'+reseptiId+'";') // Execute a query
                 .then(result => { // Print the resultsr
                     var alteredresult  = JSON.stringify(result); // turns the mysql query result into string
-                    console.log("Haettu ainesosa: " +alteredresult);
+                    //console.log("Haettu ainesosa: " +alteredresult);
                     if (callback) {
                         callback(alteredresult);
                     }
@@ -115,7 +115,7 @@ function getReseptiID(reseptiNimi, callback){
         .then(conn => {
             conn.query('use reseptiapi') // Execute a query
             conn.query('INSERT INTO reseptit(nimi, valmistusaika, kokkausohje, kuva) VALUES("'+nimi+'", '+valmistusaika+', "'+kokkausohje+'", "'+kuva+'")') // Execute a quer
-            console.log("Reseptin ID: ");
+            //console.log("Reseptin ID: ");
             conn.destroy()
         }); // Close the connection
 }
@@ -140,7 +140,7 @@ function haeReseptiById(id, callback) {
                     */
                 .then(result => { // Print the results
                     var alteredresult  = JSON.stringify(result); // turns the mysql query result into string
-                    console.log("Haettu resepti: " +alteredresult);
+                    //console.log("Haettu resepti: " +alteredresult);
                     if (callback) {
                         callback(alteredresult);
                     }
@@ -176,7 +176,7 @@ function syotaAinesosa(nimi, reseptiId) {
             conn.query('INSERT INTO ainesosat(nimi, reseptiID) VALUES("'+nimi+'",'+reseptiId+');') // Execute query
                 .catch(err => {
                     //handle error
-                    console.log("Syötetty ainesosa: "+nimi);
+                    //console.log("Syötetty ainesosa: "+nimi);
                     conn.end();
                 })
             //.then(conn.destroy()) // Close the connection
@@ -196,14 +196,14 @@ function syotaResepti(nimi, valmistusaika, kokkausohje, kuva, callback) { // str
             conn.query('INSERT INTO reseptit(nimi, valmistusaika, kokkausohje, kuva) VALUES("'+nimi+'", '+valmistusaika+', "'+kokkausohje+'", "'+kuva+'")') // Execute a query
                 .then((res) => {
                     result = res;
-                    console.log(result); // { affectedRows: 1, insertId: 1, warningStatus: 0 }
+                    //console.log(result); // { affectedRows: 1, insertId: 1, warningStatus: 0 }
                     conn.end();
                     callback && callback(result)
                 })
                 .catch(err => {
                     //handle error
                     result = err;
-                    console.log(result);
+                    //console.log(result);
                     conn.end();
                     callback && callback(result)
                 })

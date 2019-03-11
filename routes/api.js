@@ -10,7 +10,7 @@ router.get('/api', function(req, res, next) {
 router.get('/api/lista', function(req, res, next){
 
   mysqlConnect.reseptiLista(function(returnvalue){         //täytyy laittaa reseptilistalle parametrina funktio, minkä se osaa ajaa myöhemmin
-    console.log(returnvalue)
+    //console.log(returnvalue)
     res.send(JSON.parse(returnvalue));
   })
 
@@ -19,12 +19,12 @@ router.get('/api/lista', function(req, res, next){
 router.post('/api/haeResepti', function(req, res){
     var recipe = req.body.haku;
 
-    console.log(req.body.haku);
+    //console.log(req.body.haku);
 
 
 
     mysqlConnect.reseptiHaku(recipe, function(returnvalue){
-      console.log(returnvalue)
+      //console.log(returnvalue)
       res.send(JSON.parse(returnvalue));
     })
 })
@@ -34,11 +34,11 @@ router.post('/api/lisaaResepti', function(req, res) {
     var valmistusaika = req.body.valmistusaika;
     var kokkausohje= req.body.kokkausohje;
     var kuva = req.body.kuva;
-    console.log(req.body);
+    //console.log(req.body);
 
     mysqlConnect.syotaResepti(nimi, valmistusaika, kokkausohje, kuva, function (returnvalue) {
 
-        console.log(returnvalue.warningStatus);
+        //console.log(returnvalue.warningStatus);
 
         if (returnvalue.warningStatus == 0){
             res.sendStatus(200);
@@ -55,10 +55,10 @@ router.post('/api/haeReseptiById', function(req, res, next){
 
     var id = req.body.id;
 
-    console.log(req.body.id);
+    //console.log(req.body.id);
 
     mysqlConnect.haeReseptiById(id, function(returnvalue){         //täytyy laittaa reseptilistalle parametrina funktio, minkä se osaa ajaa myöhemmin
-        console.log(returnvalue)
+        //console.log(returnvalue)
         res.send(JSON.parse(returnvalue));
     })
 
