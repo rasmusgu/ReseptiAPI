@@ -213,8 +213,6 @@ function syotaResepti(nimi, valmistusaika, kokkausohje, kuva, callback) { // str
 
 // mySQL connection test
 mysqlConnectionTest();
-haeReseptiById(6)
-//haeReseptiById(6)
 
 // export functions
 module.exports.reseptiLista = reseptiLista;
