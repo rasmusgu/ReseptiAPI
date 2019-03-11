@@ -51,5 +51,14 @@ Hae reseptejä reseptin id:llä
              
              
 Lisää reseptejä
-             
-/api/lisaaResepti'
+    POST /api/lisaaResepti
+    Content type täytyy olla "application/json" 
+    
+   esimerkkihaku:
+            
+            
+                 {"nimi":"makaronilaatikko",
+                 "valmistusaika":"45",
+                 "kokkausohje":"paista jauheliha, lisää makaroni ja juusto, laita uuniin 45min",
+                 "kuva":"https://www.myllynparas.fi/sites/default/files/thumbnails/image/1187088704_makaronilaatikko_4.jpg",
+                 "aines":"jauheliha, makaroni, juusto"}
