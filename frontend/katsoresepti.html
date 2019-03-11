@@ -28,6 +28,7 @@
 
 
         function tulostaResepti(resepti){
+            document.title = resepti.nimi;
             nimi = document.createElement("h1")
             nimiTeksti = document.createTextNode(resepti.nimi);
             nimi.appendChild(nimiTeksti);
