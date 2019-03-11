@@ -15,20 +15,19 @@
             if (xmlhttp.status != 500) {
                 return;
             }
-            console.log("error")
             window.location = "http://localhost:3000";
         }
         xmlhttp.open("POST", url, true);
         xmlhttp.setRequestHeader("Content-Type", "application/json");
 
         function lisaa(){
-            console.log("sending recipe");
             nimi = document.getElementById("nimi").value;
             valmistusaika = document.getElementById("valmistusaika").value;
             valmistusohje = document.getElementById("valmistusohje").value;
             kuva = document.getElementById("kuva").value;
+            aines = document.getElementById("aines").value;
 
-            xmlhttp.send('{"nimi":"'+nimi+'","valmistusaika":"'+valmistusaika+'","kokkausohje":"'+valmistusohje+'","kuva":"'+kuva+'"}');
+            xmlhttp.send('{"nimi":"'+nimi+'","valmistusaika":"'+valmistusaika+'","kokkausohje":"'+valmistusohje+'","kuva":"'+kuva+'","aines":"'+aines+'"}');
         }
 
     </script>
@@ -41,6 +40,8 @@
     <input type="number" id="valmistusaika"><br><br>
     Valmistusohje<br>
     <input type="text" id="valmistusohje"><br><br>
+    Ainekset<br>
+    <input type="text" id="aines"><br><br>
     Kuva (url)<br>
     <input type="url" id="kuva"><br><br>
     <input type="submit" name="lähetä" value="Lähetä">
