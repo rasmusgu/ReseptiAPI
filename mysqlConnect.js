@@ -220,4 +220,5 @@ haeReseptiById(6)
 module.exports.reseptiLista = reseptiLista;
 module.exports.reseptiHaku = reseptiHaku;
 module.exports.syotaResepti = syotaResepti;
+module.exports.syotaAinesosa = syotaAinesosa;
 module.exports.haeReseptiById = haeReseptiById;
