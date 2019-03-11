@@ -11,7 +11,7 @@ function mysqlConnectionTest() {
             conn.query('SELECT "mySQL connection succesful!" as my_message') // Execute a query
                 .then(result => { // Print the results
                     for (row of result) {
-                        //console.log(row)
+                        console.log(row)
                     }
                 })
                 .then(conn.destroy()) // Close the connection
