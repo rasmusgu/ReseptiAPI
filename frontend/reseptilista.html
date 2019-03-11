@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        var xmlhttp = new XMLHttpRequest();
+        var url = "http://localhost:3000/api/lista";
+
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                recipeArr = JSON.parse(xmlhttp.responseText);
+                kirjoitaTaulu(recipeArr);
+            }
+        }
+        xmlhttp.open("GET", url, true);
+        xmlhttp.send();
+
+        function kirjoitaTaulu(arr){
+            for(i = 0; i < arr.length; i++){
+                taulu = document.getElementById("reseptiTaulu");
+                rivi = document.createElement("tr");
+
+                nimiKol = document.createElement("td");
+                nimiTeksti = document.createTextNode(arr[i].nimi);
+                nimiKol.appendChild(nimiTeksti);
+
+                valmistusaikaKol = document.createElement("td");
+                valmistusAikaTeksti = document.createTextNode(arr[i].valmistusaika + " minuuttia");
+                valmistusaikaKol.appendChild(valmistusAikaTeksti);
+
+                kuvaKol = document.createElement("td")
+                var img = document.createElement('img');
+                img.src = arr[i].kuva;
+                img.alt = "ei kuvaa";
+
+                var link = document.createElement("a");
+                link.href = "http://localhost:3000/katsoresepti?id="+arr[i].id;
+                link.appendChild(img)
+
+                img.style.width = '100px';
+                img.style.width = '100px';
+                kuvaKol.appendChild(link);
+
+                rivi.appendChild(nimiKol);
+                rivi.appendChild(valmistusaikaKol);
+                rivi.appendChild(kuvaKol);
+
+                taulu.appendChild(rivi);
+            }
+        }
+    </script>
+    <meta charset="UTF-8">
+    <title>Reseptilista</title>
+</head>
+<body>
+<table border="1" id="reseptiTaulu">
+    <tbody>
+    <tr>
+        <th>Nimi</th>
+        <th>Valmistusaika</th>
+        <th>Kuva</th>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

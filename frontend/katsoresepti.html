@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function getUrlVars() {
+            var vars = {};
+            var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+                vars[key] = value;
+            });
+            return vars;
+        }
+        var xmlhttp = new XMLHttpRequest();
+        var url = "http://localhost:3000/api/haeReseptiById";
+        xmlhttp.open("POST", url, true);
+        xmlhttp.setRequestHeader("Content-Type", "application/json");
+        urlVars = getUrlVars();
+        xmlhttp.send('{"id":"'+urlVars.id+'"}');
+
+        xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+                var resultArr = JSON.parse(xmlhttp.responseText);
+                console.log(resultArr);
+                tulostaResepti(resultArr[0]);
+            }
+        };
+
+
+        function tulostaResepti(resepti){
+            document.title = resepti.nimi;
+            nimi = document.createElement("h1")
+            nimiTeksti = document.createTextNode(resepti.nimi);
+            nimi.appendChild(nimiTeksti);
+
+            var img = document.createElement('img');
+            img.src = resepti.kuva;
+            img.alt = "ei kuvaa";
+            img.style.width = '500px';
+            img.style.width = '500px';
+
+            valmistusohje = document.createElement("p");
+            valmistusohjeTeksti = document.createTextNode(resepti.kokkausohje);
+            valmistusohje.appendChild(valmistusohjeTeksti)
+            vaOtsikko = document.createElement("h3");
+            vaoTeksti = document.createTextNode("Valmistusohje")
+            vaOtsikko.appendChild(vaoTeksti);
+
+            ainekset = document.createElement("p");
+            aineksetTeksti = document.createTextNode(resepti[Object.keys(resepti)[5]]);
+            ainekset.appendChild(aineksetTeksti);
+            aOtsikko = document.createElement("h3");
+            aoTeksti = document.createTextNode("Ainekset");
+            aOtsikko.appendChild(aoTeksti);
+
+            valmistusaika = document.createElement("p");
+            valmistusaikaTeksti = document.createTextNode(resepti.valmistusaika+" minuuttia");
+            valmistusaika.appendChild(valmistusaikaTeksti);
+            vatOtsikko = document.createElement("h3");
+            vatoTeksti = document.createTextNode("Valmistusaika");
+            vatOtsikko.appendChild(vatoTeksti);
+
+            document.body.appendChild(nimi);
+            document.body.appendChild(img);
+            document.body.appendChild(aOtsikko);
+            document.body.appendChild(ainekset);
+            document.body.appendChild(vaOtsikko);
+            document.body.appendChild(valmistusohje);
+            document.body.appendChild(vatOtsikko);
+            document.body.appendChild(valmistusaika);
+        }
+
+    </script>
+</head>
+<body>
+</body>
+</html>
