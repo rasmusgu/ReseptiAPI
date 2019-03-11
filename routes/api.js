@@ -15,7 +15,20 @@ router.get('/api/list', function(req, res, next){
     res.send(JSON.parse(returnvalue));
   })
 
+})
+
+
+
+router.get('/api/haku', function(req, res, next){
+
+
+   var promise = mysqlConnect.reseptiHaku("puuro");
+  promise.then((message) => {console.log(message) } );
+
+
+
 
 })
+
 
 module.exports = router;

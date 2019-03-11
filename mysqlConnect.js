@@ -11,7 +11,7 @@ function mysqlConnectionTest() {
             conn.query('SELECT "Hello world!" as my_message') // Execute a query
                 .then(result => { // Print the results
                     for (row of result) {
-                        //console.log(row)
+                        console.log(row)
                     }
                 })
                 .then(conn.destroy()) // Close the connection
@@ -48,6 +48,7 @@ function reseptiLista(callback) {
 }
 
 function reseptiHaku(reseptinNimi) {
+
     mariadb.createConnection({ // Open a new connection
         user: 'monty',
         password: 'metrofilia1',
@@ -59,11 +60,13 @@ function reseptiHaku(reseptinNimi) {
             conn.query('SELECT "' + reseptinNimi + '" FROM reseptit') // Execute a query
                 .then(result => { // Print the results
                     for (row of result) {
-                        console.log(row)
+                        //console.log(row)
                     }
+                    return result
                     })
-                .then(conn.destroy()) // Close the connection
-            return result
+
+                //.then(conn.destroy()) // Close the connection
+
         })
 
 }
@@ -125,4 +128,5 @@ mysqlConnectionTest();
 //syotaAinesosa("Kaurahiutaleet", 5);
 //syotaAinesosa("Omenat",5);
 
-module.exports.reseptiLista = reseptiLista; // export your functuion
+module.exports.reseptiLista = reseptiLista;// export your functuion
+module.exports.reseptiHaku = reseptiHaku;
