@@ -45,7 +45,16 @@ router.post('/api/lisaaResepti', function(req, res) {
         if (returnvalue.warningStatus == 0) {
             res.sendStatus(200);
             mysqlConnect.haeReseptiId(nimi, function(id){
-                mysqlConnect.syotaAinesosa(aines,id,function(returnvalue){});
+                // creates a new string starting from the 7th character of the old string
+                // removing [{"id": from the string allowing us to parse the id below
+                var substractedIdString = id.substr(7)
+
+                // parses the first numerical value from string into new variable
+                var parsedId = parseInt(substractedIdString);
+
+                // inserts the user inputted aines and id corresponding to recipe
+                // to their respective mySQL table
+                mysqlConnect.syotaAinesosa(aines,parsedId,function(returnvalue){});
             });
         } else {
             res.sendStatus(500);
