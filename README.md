@@ -7,7 +7,7 @@ POST
 ```
 
 ## Hae kaikki reseptit
-GET  /api/lista
+`GET  /api/lista`
 palauttaa listan kaikista resepteistä
 
 Esimerkkivastaus:
