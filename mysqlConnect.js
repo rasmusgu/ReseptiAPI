@@ -125,7 +125,12 @@ function getReseptiID(reseptiNimi, callback){
         .then(conn => {
             conn.query('use reseptiapi') // Execute a query
             conn.query('INSERT INTO reseptit(nimi, valmistusaika, kokkausohje, kuva) VALUES("'+nimi+'", '+valmistusaika+', "'+kokkausohje+'", "'+kuva+'")') // Execute a quer
-            //console.log("Reseptin ID: ");
+                .then(result => { // Print the results
+                    var alteredresult  = JSON.stringify(result); // turns the mysql query result into string
+                    if (callback) {
+                        callback(alteredresult);
+                    }
+                })
             conn.destroy()
         }); // Close the connection
 }

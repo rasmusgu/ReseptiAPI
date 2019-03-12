@@ -39,25 +39,22 @@ router.post('/api/lisaaResepti', function(req, res) {
     var kokkausohje= req.body.kokkausohje;
     var kuva = req.body.kuva;
     var aines = req.body.aines;
-    //console.log(req.body);
+    console.log("aines: "+aines);
 
 
-         mysqlConnect.syotaResepti(nimi, valmistusaika, kokkausohje, kuva, function (returnvalue) {
-
-        //console.log(returnvalue.warningStatus);
+    mysqlConnect.syotaResepti(nimi, valmistusaika, kokkausohje, kuva, function (returnvalue) {
 
         if (returnvalue.warningStatus == 0) {
             res.sendStatus(200);
+            mysqlConnect.getReseptiID(nimi, function(id){
+                mysqlConnect.syotaAinesosa(aines,id,function(returnvalue){});
+            });
         } else {
             res.sendStatus(500);
-        }
-         })
+        }});
 
-        mysqlConnect.syotaAinesosa(aines, function (returnvalue) {
-        res.status(200);
-    });
 
-})
+});
 
 
 router.post('/api/haeReseptiById', function(req, res, next){
