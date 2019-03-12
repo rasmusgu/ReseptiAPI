@@ -39,15 +39,19 @@ Content type täytyy olla `application/json"`
 JSONin täytyy olla muodossa `{"haku":"hakutermi"}`
 
 Esimerkkivastaus:
-`{"haku":"puuro"}`
+```json
+{"haku":"puuro"}`
+```
 
 ## Hae reseptejä reseptin id:llä
 `POST /api/haeReseptiById`
 Content type täytyy olla `application/json` 
-Jsonin täytyy olla muodossa {"id":"idnumero"}
+Jsonin täytyy olla muodossa `{"id":"idnumero"}`
    
 Esimerkkihaku:
-`{"id:"1"}`
+```json
+{"id:"1"}`
+```
              
              
 ## Lisää reseptejä
@@ -55,7 +59,7 @@ Esimerkkihaku:
 Content type täytyy olla `application/json` 
     
 Esimerkkihaku:          
-```
+```json
 {"nimi":"makaronilaatikko",
 "valmistusaika":"45",
 "kokkausohje":"paista jauheliha, lisää makaroni ja juusto, laita uuniin 45min",
