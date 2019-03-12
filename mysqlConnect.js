@@ -130,10 +130,9 @@ function haeReseptiId(nimi, callback){
         .then(conn => {
             conn.query('use reseptiapi') // Execute a query
             conn.query('SELECT id FROM reseptit WHERE nimi="'+nimi+'";') // Execute a quer
-            //console.log("Reseptin ID: ");
                 .then(result => { // Print the resultsr
                     var alteredresult  = JSON.stringify(result); // turns the mysql query result into string
-                    console.log("Haettu ainesosa: " +alteredresult);
+                    console.log("Haettu reseptiID: " +alteredresult);
                     callback && callback(alteredresult)
                 })
                 .catch(err => {
