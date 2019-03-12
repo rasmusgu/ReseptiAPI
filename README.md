@@ -54,7 +54,7 @@ Esimerkkihaku:
 ```
              
              
-## Lisää reseptejä
+## Lisää resepti
 `POST /api/lisaaResepti`
 Content type täytyy olla `application/json` 
     
