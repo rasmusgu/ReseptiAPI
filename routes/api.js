@@ -44,7 +44,7 @@ router.post('/api/lisaaResepti', function(req, res) {
 
         if (returnvalue.warningStatus == 0) {
             res.sendStatus(200);
-            mysqlConnect.getReseptiID(nimi, function(id){
+            mysqlConnect.haeReseptiId(nimi, function(id){
                 mysqlConnect.syotaAinesosa(aines,id,function(returnvalue){});
             });
         } else {
