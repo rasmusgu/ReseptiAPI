@@ -74,8 +74,8 @@ router.post('/api/haeReseptiId', function(req, res, next){
         mysqlConnect.haeReseptiId(nimi, function(returnvalue) {
             res.send(JSON.parse(returnvalue));
         })
-    })
-};
+    }
+});
 
 
 module.exports = router;

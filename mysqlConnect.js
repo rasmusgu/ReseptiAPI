@@ -186,14 +186,12 @@ function syotaResepti(nimi, valmistusaika, kokkausohje, kuva, callback) { // str
             conn.query('INSERT INTO reseptit(nimi, valmistusaika, kokkausohje, kuva) VALUES("'+nimi+'", '+valmistusaika+', "'+kokkausohje+'", "'+kuva+'")') // Execute a query
                 .then((res) => {
                     result = res;
-                    //console.log(result); // { affectedRows: 1, insertId: 1, warningStatus: 0 }
                     conn.end();
                     callback && callback(result)
                 })
                 .catch(err => {
                     //handle error
-                    result = err;
-                    console.log(result);
+                    console.log(err);
                     conn.end();
                     callback && callback(result)
                 })
