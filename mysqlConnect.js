@@ -120,7 +120,7 @@ function ainesosaHaku(hakusana, callback) {
 
 }
 
-function getReseptiID(reseptiNimi, callback){
+function haeReseptiId(nimi, callback){
     mariadb.createConnection({ // Open a new connection
         user: mysqlUser,
         password: mysqlPassword,
@@ -129,8 +129,19 @@ function getReseptiID(reseptiNimi, callback){
     })
         .then(conn => {
             conn.query('use reseptiapi') // Execute a query
-            conn.query('INSERT INTO reseptit(nimi, valmistusaika, kokkausohje, kuva) VALUES("'+nimi+'", '+valmistusaika+', "'+kokkausohje+'", "'+kuva+'")') // Execute a quer
+            conn.query('SELECT id FROM reseptit WHERE nimi="'+nimi+'";') // Execute a quer
             //console.log("Reseptin ID: ");
+                .then(result => { // Print the resultsr
+                    var alteredresult  = JSON.stringify(result); // turns the mysql query result into string
+                    console.log("Haettu ainesosa: " +alteredresult);
+                    callback && callback(alteredresult)
+                })
+                .catch(err => {
+                    //handle error
+                    console.log(err);
+                    conn.end();
+                    callback && callback(err)
+                })
             conn.destroy()
         }); // Close the connection
 }
@@ -213,6 +224,7 @@ function syotaAinesosa(ainesosat, reseptiId) {
 mysqlConnectionTest();
 //syotaResepti('Tarte Tatin', 200,'Käännä omenatorttu ylösalasin', 'https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2F4.bp.blogspot.com%2F-K_4qEmE3anQ%2FT_ePKo9MplI%2FAAAAAAAAAUQ%2FlCdlLC6Ebz8%2Fs1600%2Ftarte-tatin-640.jpg&f=1')
 //syotaAinesosa('Poron liha: 5kg', 52)
+//haeReseptiId("Karkki")
 
 // export functions
 module.exports.reseptiLista = reseptiLista;
@@ -220,4 +232,5 @@ module.exports.reseptiHaku = reseptiHaku;
 module.exports.syotaResepti = syotaResepti;
 module.exports.syotaAinesosa = syotaAinesosa;
 module.exports.haeReseptiById = haeReseptiById;
+module.exports.haeReseptiId = haeReseptiId;
 

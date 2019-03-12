@@ -77,12 +77,14 @@ router.post('/api/haeReseptiById', function(req, res, next){
 
 
 
-router.post('/api/haeReseptiById', function(req, res, next){
-    var id = req.body.id;
-    mysqlConnect.haeReseptiById(id, function(returnvalue) {
-        res.send(JSON.parse(returnvalue));
+router.post('/api/haeReseptiId', function(req, res, next){
+    if (req.header('Content-type') == "application/json") {
+        var nimi = req.body.nimi;
+        mysqlConnect.haeReseptiId(nimi, function(returnvalue) {
+            res.send(JSON.parse(returnvalue));
+        })
     })
-});
+};
 
 
 module.exports = router;
