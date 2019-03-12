@@ -50,7 +50,7 @@ Jsonin täytyy olla muodossa `{"id":"idnumero"}`
    
 Esimerkkihaku:
 ```json
-{"id:"1"}`
+{"id":"1"}
 ```
              
              
