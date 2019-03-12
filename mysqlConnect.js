@@ -1,11 +1,16 @@
 var mariadb = require('mariadb');
 
+mysqlUser = 'monty'
+mysqlPassword = 'metrofilia1'
+mysqlHost = 'haxers.ddns.net'
+mysqlPort = 3306
+
 function mysqlConnectionTest() {
     mariadb.createConnection({ // Open a new connection
-        user: 'monty',
-        password: 'metrofilia1',
-        host: 'haxers.ddns.net',
-        port: 3306
+        user: mysqlUser,
+        password: mysqlPassword,
+        host: mysqlHost,
+        port: mysqlPort
     })
         .then(conn => {
             conn.query('SELECT "mySQL connection succesful!" as my_message') // Execute a query
@@ -20,10 +25,10 @@ function mysqlConnectionTest() {
 
 function reseptiLista(callback) {
     mariadb.createConnection({ // Open a new connection
-        user: 'monty',
-        password: 'metrofilia1',
-        host: 'haxers.ddns.net',
-        port: 3306
+        user: mysqlUser,
+        password: mysqlPassword,
+        host: mysqlHost,
+        port: mysqlPort
     })
         .then(conn => {
             conn.query('use reseptiapi') // select database
@@ -44,10 +49,10 @@ function reseptiLista(callback) {
 
 function reseptiJaAinesosaLista(callback){
     mariadb.createConnection({ // Open a new connection
-        user: 'monty',
-        password: 'metrofilia1',
-        host: 'haxers.ddns.net',
-        port: 3306
+        user: mysqlUser,
+        password: mysqlPassword,
+        host: mysqlHost,
+        port: mysqlPort
     })
         .then(conn => {
             conn.query('use reseptiapi') // select database
@@ -67,12 +72,11 @@ function reseptiJaAinesosaLista(callback){
 
 
 function reseptiHaku(reseptinNimi, callback) {
-
     mariadb.createConnection({ // Open a new connection
-        user: 'monty',
-        password: 'metrofilia1',
-        host: 'haxers.ddns.net',
-        port: 3306
+        user: mysqlUser,
+        password: mysqlPassword,
+        host: mysqlHost,
+        port: mysqlPort
     })
         .then(conn => {
             conn.query('use reseptiapi') // Execute a query
@@ -92,10 +96,10 @@ function reseptiHaku(reseptinNimi, callback) {
 
 function ainesosaHaku(callback) {
     mariadb.createConnection({ // Open a new connection
-        user: 'monty',
-        password: 'metrofilia1',
-        host: 'haxers.ddns.net',
-        port: 3306
+        user: mysqlUser,
+        password: mysqlPassword,
+        host: mysqlHost,
+        port: mysqlPort
     })
         .then(conn => {
             conn.query('use reseptiapi') // Execute a query
@@ -113,10 +117,10 @@ function ainesosaHaku(callback) {
 
 function getReseptiID(reseptiNimi, callback){
     mariadb.createConnection({ // Open a new connection
-        user: 'monty',
-        password: 'metrofilia1',
-        host: 'haxers.ddns.net',
-        port: 3306
+        user: mysqlUser,
+        password: mysqlPassword,
+        host: mysqlHost,
+        port: mysqlPort
     })
         .then(conn => {
             conn.query('use reseptiapi') // Execute a query
@@ -128,10 +132,10 @@ function getReseptiID(reseptiNimi, callback){
 
 function haeReseptiById(id, callback) {
     mariadb.createConnection({ // Open a new connection
-        user: 'monty',
-        password: 'metrofilia1',
-        host: 'haxers.ddns.net',
-        port: 3306
+        user: mysqlUser,
+        password: mysqlPassword,
+        host: mysqlHost,
+        port: mysqlPort
     })
         .then(conn => {
             conn.query('use reseptiapi') // select database
@@ -170,16 +174,16 @@ function haeReseptiById(id, callback) {
         })
 }
 
-function syotaAinesosa(nimi, reseptiId) {
+function syotaAinesosa(ainesosat, reseptiId) {
     mariadb.createConnection({ // Open a new connection
-        user: 'monty',
-        password: 'metrofilia1',
-        host: 'haxers.ddns.net',
-        port: 3306
+        user: mysqlUser,
+        password: mysqlPassword,
+        host: mysqlHost,
+        port: mysqlPort
     })
         .then(conn => {
             conn.query('use reseptiapi') // Choose database
-            conn.query('INSERT INTO ainesosat(nimi, reseptiID) VALUES("'+nimi+'",'+reseptiId+');') // Execute query
+            conn.query('INSERT INTO ainesosat(nimi, reseptiID) VALUES("'+ainesosat+'",'+reseptiId+');') // Execute query
                 .catch(err => {
                     //handle error
                     //console.log("Syötetty ainesosa: "+nimi);
@@ -191,10 +195,10 @@ function syotaAinesosa(nimi, reseptiId) {
 
 function syotaResepti(nimi, valmistusaika, kokkausohje, kuva, callback) { // strings: nimi, valmistusaika, kuva. int: kokkausohje
     mariadb.createConnection({ // Open a new connection
-        user: 'monty',
-        password: 'metrofilia1',
-        host: 'haxers.ddns.net',
-        port: 3306
+        user: mysqlUser,
+        password: mysqlPassword,
+        host: mysqlHost,
+        port: mysqlPort
     })
         .then(conn => {
            // var result;
