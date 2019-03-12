@@ -39,8 +39,6 @@ router.post('/api/lisaaResepti', function(req, res) {
     var kokkausohje= req.body.kokkausohje;
     var kuva = req.body.kuva;
     var aines = req.body.aines;
-    console.log("aines: "+aines);
-
 
     mysqlConnect.syotaResepti(nimi, valmistusaika, kokkausohje, kuva, function (returnvalue) {
 
@@ -52,13 +50,10 @@ router.post('/api/lisaaResepti', function(req, res) {
         } else {
             res.sendStatus(500);
         }});
-
-
 });
 
 
 router.post('/api/haeReseptiById', function(req, res, next){
- //console.log(req.header('Content-type'));
     if (req.header('Content-type') == "application/json") {
         var id = req.body.id;
         mysqlConnect.haeReseptiById(id, function (returnvalue) {
