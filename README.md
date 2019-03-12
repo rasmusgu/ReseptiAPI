@@ -35,6 +35,7 @@ Esimerkkivastaus:
 
 ## Hae reseptejä millä tahansa hakutermillä
 `POST /api/haeResepti`
+
 Content type täytyy olla `application/json"` 
 JSONin täytyy olla muodossa `{"haku":"hakutermi"}`
 
@@ -45,6 +46,7 @@ Esimerkkivastaus:
 
 ## Hae reseptejä reseptin id:llä
 `POST /api/haeReseptiById`
+
 Content type täytyy olla `application/json` 
 Jsonin täytyy olla muodossa `{"id":"idnumero"}`
    
@@ -56,6 +58,7 @@ Esimerkkihaku:
              
 ## Lisää resepti
 `POST /api/lisaaResepti`
+
 Content type täytyy olla `application/json` 
     
 Esimerkkihaku:          
