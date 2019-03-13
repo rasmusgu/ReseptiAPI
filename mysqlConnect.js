@@ -219,9 +219,6 @@ function syotaAinesosa(ainesosat, reseptiId) {
 
 // mySQL connection test
 mysqlConnectionTest();
-//syotaResepti('Tarte Tatin', 200,'Käännä omenatorttu ylösalasin', 'https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2F4.bp.blogspot.com%2F-K_4qEmE3anQ%2FT_ePKo9MplI%2FAAAAAAAAAUQ%2FlCdlLC6Ebz8%2Fs1600%2Ftarte-tatin-640.jpg&f=1')
-//syotaAinesosa('Poron liha: 5kg', 52)
-haeReseptiId("Karkki")
 
 // export functions
 module.exports.reseptiLista = reseptiLista;
